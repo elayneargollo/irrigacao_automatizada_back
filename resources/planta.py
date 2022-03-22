@@ -2,82 +2,64 @@ from click import argument
 from flask_restful import Resource, reqparse
 from models.planta import PlantaModel
 
-plantas = [
-        {
-            'plantaId': 'palmeira',
-            'nome': 'Palmeira',
-            'ambiente': 'externo',
-            'tipoSolo': 'argiloso',
-            'porte': 'Pequena',
-            'fruto': 'sim'
-        },
-        {
-            'plantaId': 'rosa',
-            'nome': 'Rosa',
-            'ambiente': 'externo',
-            'tipoSolo': 'arenoso',
-            'porte': 'Média',
-            'fruto': 'sim'
-        },
-            {
-            'plantaId': 'girassol',
-            'nome': 'Girassol',
-            'ambiente': 'externo',
-            'tipoSolo': 'argiloso-arenoso',
-            'porte': 'Grande',
-            'fruto': 'sim'
-        }
-]
-
 class Plantas(Resource):
     def get(self):
-        return {'plantas': plantas}
+        return {'plantas': [planta.json() for planta in PlantaModel.query.all()]}
 
 class Planta(Resource):
     argumentos = reqparse.RequestParser()
-    argumentos.add_argument('nome')
-    argumentos.add_argument('ambiente')
-    argumentos.add_argument('tipoSolo')
-    argumentos.add_argument('porte')
-    argumentos.add_argument('fruto')
-
-    def find_planta(plantaId):
-
-        for planta in plantas :
-            if planta['plantaId'] == plantaId:
-                return planta
-        return None
+    argumentos.add_argument('nome', type=str, required=True, help="The fiedl 'nome' cannot be left blank")
+    argumentos.add_argument('ambiente', type=str, required=True, help="The fiedl 'ambiente' cannot be left blank")
+    argumentos.add_argument('tipoSolo', type=str, required=True, help="The fiedl 'tipoSolo' cannot be left blank")
+    argumentos.add_argument('porte', type=str, required=True, help="The fiedl 'porte' cannot be left blank")
+    argumentos.add_argument('fruto', type=str, required=True, help="The fiedl 'fruto' cannot be left blank")
 
     def get(self, plantaId):
 
-        planta = Planta.find_planta(plantaId)
+        planta = PlantaModel.find_planta(plantaId)
         if planta:
-            return planta
+            return planta.json()
         return {'message': 'Planta not found.'}, 404
 
     def post(self, plantaId):
-        
-        dados = Planta.argumentos.parse_args()
-        planta_objeto = PlantaModel(plantaId, ** dados)
-        nova_planta = planta_objeto.json()
+        if PlantaModel.find_planta(plantaId):
+            return {"message": "Planta '{}' already exists.".format(plantaId)}, 400
 
-        plantas.append(nova_planta)
-        return nova_planta, 200
+        dados = Planta.argumentos.parse_args()
+        planta = PlantaModel(plantaId, ** dados)
+
+        try:
+            planta.save_planta()
+        except:
+            return {"message": "An internal error ocurred trying to save."}, 500
+
+        return planta.json()
 
     def put(self, plantaId):
 
         dados = Planta.argumentos.parse_args()
-        planta_objeto = PlantaModel(plantaId, ** dados)
-        nova_planta = planta_objeto.json()
+        planta_encontrada = PlantaModel.find_planta(plantaId)
 
-        planta = Planta.find_planta(plantaId)
-        if planta:
-            planta.update(nova_planta)
-            return nova_planta, 200
-        plantas.append(nova_planta)
-        return nova_planta, 201      
+        if planta_encontrada:
+            planta_encontrada.update_planta(**dados)
+            planta_encontrada.save_planta()
+            return planta_encontrada.json(), 200
+        planta = PlantaModel(plantaId, ** dados)
+
+        try:
+            planta.save_planta()
+        except:
+            return {"message": "An internal error ocurred trying to save."}, 500
+
+        return planta.json(), 201      
 
     def delete(self, plantaId):
-        global plantas
-        plantas = [planta for planta in plantas if planta['plantaId'] != plantaId]
-        return {'message': 'Planta deleted.'}
+        planta_encontrada = PlantaModel.find_planta(plantaId)
+
+        if planta_encontrada:
+            try:
+                planta_encontrada.delete_planta()
+            except:
+                return {"message": "An internal error ocurred trying to delete."}, 500
+            return {'message': 'Planta deleted.'}
+        return {'message': 'Planta not found.'}, 404
