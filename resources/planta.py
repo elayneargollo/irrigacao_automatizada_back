@@ -8,11 +8,11 @@ class Plantas(Resource):
 
 class Planta(Resource):
     argumentos = reqparse.RequestParser()
-    argumentos.add_argument('nome', type=str, required=True, help="The fiedl 'nome' cannot be left blank")
-    argumentos.add_argument('ambiente', type=str, required=True, help="The fiedl 'ambiente' cannot be left blank")
-    argumentos.add_argument('tipoSolo', type=str, required=True, help="The fiedl 'tipoSolo' cannot be left blank")
-    argumentos.add_argument('porte', type=str, required=True, help="The fiedl 'porte' cannot be left blank")
-    argumentos.add_argument('fruto', type=str, required=True, help="The fiedl 'fruto' cannot be left blank")
+    argumentos.add_argument('nome', type=str, required=True, help="The field 'nome' cannot be left blank")
+    argumentos.add_argument('ambiente', type=str, required=True, help="The field 'ambiente' cannot be left blank")
+    argumentos.add_argument('tipoSolo', type=str, required=True, help="The field 'tipoSolo' cannot be left blank")
+    argumentos.add_argument('porte', type=str, required=True, help="The field 'porte' cannot be left blank")
+    argumentos.add_argument('fruto', type=str, required=True, help="The field 'fruto' cannot be left blank")
 
     def get(self, plantaId):
 

@@ -1,12 +1,17 @@
 from flask import Flask
 from flask_restful import Api
 from resources.planta import Plantas, Planta
+from resources.usuario import Usuario, UsuarioRegister, UsuarioLogin
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
 app.config['SQLALCHEMY_DATABASE_URI_TRACK_MODIFICATIONS'] = False
+app.config['JWT_SECRET_KEY'] = 'DontTellAnyone'
+
 api = Api(app)
+jwt = JWTManager(app)
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -16,6 +21,9 @@ def cria_banco():
 
 api.add_resource(Plantas, '/plantas/')
 api.add_resource(Planta, '/plantas/<string:plantaId>')
+api.add_resource(Usuario, '/usuarios/<int:usuarioId>')
+api.add_resource(UsuarioRegister, '/cadastro')
+api.add_resource(UsuarioLogin, '/login')
 
 if __name__ == '__main__':
     from sql_alchemy import banco
