@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 from models.usuario import UsuarioModel
 from flask_jwt_extended import create_access_token
 from werkzeug.security import safe_str_cmp
+from flask_jwt_extended import jwt_required
 
 atributos = reqparse.RequestParser()
 atributos.add_argument('nome')
@@ -11,6 +12,8 @@ atributos.add_argument('email', type=str, required=True, help="The field 'email'
 atributos.add_argument('password', type=str, required=True, help="The field 'password' cannot be left blank")
 
 class Usuario(Resource):
+    
+    @jwt_required
     def get(self, usuarioId):
 
         usuario = UsuarioModel.find_usuario(usuarioId)
