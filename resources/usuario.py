@@ -1,9 +1,9 @@
 from click import argument
 from flask_restful import Resource, reqparse
 from models.usuario import UsuarioModel
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt
 from werkzeug.security import safe_str_cmp
-from flask_jwt_extended import jwt_required
+from blocklist import BLOCKLIST
 
 atributos = reqparse.RequestParser()
 atributos.add_argument('nome')
@@ -13,7 +13,7 @@ atributos.add_argument('password', type=str, required=True, help="The field 'pas
 
 class Usuario(Resource):
     
-    @jwt_required
+    @jwt_required()
     def get(self, usuarioId):
 
         usuario = UsuarioModel.find_usuario(usuarioId)
@@ -51,3 +51,12 @@ class UsuarioLogin(Resource):
             return {'access_token': tokenAcesso}, 200
         return {'message': 'The e-mail or password is incorrect.'}, 401
  
+class UsuarioLogout(Resource):
+
+    @jwt_required()
+    def post(self):
+        jwt_id = get_jwt()["jti"]
+        BLOCKLIST.add(jwt_id)
+        return {'message': 'Logged out successfully.'}, 200
+ 
+
