@@ -1,9 +1,7 @@
 from click import argument
 from flask_restful import Resource, reqparse
 from models.ambiente import AmbienteModel
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt
-from werkzeug.security import safe_str_cmp
-from blocklist import BLOCKLIST
+from flask_jwt_extended import  jwt_required
 
 atributos = reqparse.RequestParser()
 atributos.add_argument('tipoAmbiente')
@@ -14,7 +12,7 @@ class Ambiente(Resource):
     @jwt_required()
     def get(self, ambienteId):
 
-        ambiente = AmbienteModel.find_solo(ambienteId)
+        ambiente = AmbienteModel.find_ambiente(ambienteId)
         if ambiente:
             return ambiente.json()
         return {'message': 'Tipo de Ambiente not found.'}, 404
