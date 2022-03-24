@@ -3,6 +3,7 @@ from flask_restful import Api
 from resources.planta import Plantas, Planta
 from resources.usuario import Usuario, UsuarioRegister, UsuarioLogin, UsuarioLogout
 from resources.solo import Solo, Solos
+from resources.ambiente import Ambiente, Ambientes
 from flask_jwt_extended import JWTManager
 from blocklist import BLOCKLIST
 from flask_cors import CORS 
@@ -35,6 +36,9 @@ api.add_resource(Planta, '/plantas/<string:plantaId>')
 
 api.add_resource(Solos, '/solos/')
 api.add_resource(Solo, '/solos/<int:soloId>')
+
+api.add_resource(Ambientes, '/ambientes/')
+api.add_resource(Ambiente, '/ambientes/<int:ambienteId>')
 
 api.add_resource(Usuario, '/usuarios/<int:usuarioId>')
 api.add_resource(UsuarioRegister, '/cadastro')
