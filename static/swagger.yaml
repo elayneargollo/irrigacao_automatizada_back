@@ -43,6 +43,29 @@ paths:
       responses: 
         '200':
           description: Cadastrar-se no sistema
+  
+  /confirmacao/{usuario_id}:
+    get:
+      summary: Confirma a identidade do usuário cadastrado
+      tags:
+        - Usuário
+      parameters:
+        - name: usuario_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : integer
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID do usuário especificado é inválido (não é um número).
+        '404':
+          description: Usuário com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.
+
 
   /logout:
     post:

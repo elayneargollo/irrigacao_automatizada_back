@@ -3,7 +3,7 @@ from telnetlib import AUTHENTICATION
 from flask import Flask, jsonify, request
 from flask_restful import Api
 from resources.planta import Plantas, Planta
-from resources.usuario import Usuario, UsuarioRegister, UsuarioLogin, UsuarioLogout
+from resources.usuario import Usuario, UsuarioRegister, UsuarioLogin, UsuarioLogout, UsuarioConfirmado
 from resources.solo import Solo, Solos
 from resources.ambiente import Ambiente, Ambientes
 from resources.porte import Porte, Portes
@@ -65,6 +65,7 @@ api.add_resource(Usuario, '/usuarios/<int:usuarioId>')
 api.add_resource(UsuarioRegister, '/cadastro')
 api.add_resource(UsuarioLogin, '/login')
 api.add_resource(UsuarioLogout, '/logout')
+api.add_resource(UsuarioConfirmado, '/confirmacao/<int:usuarioId>')
 
 if __name__ == '__main__':
     from sql_alchemy import banco

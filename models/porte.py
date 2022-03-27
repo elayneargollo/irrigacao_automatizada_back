@@ -5,7 +5,7 @@ class PorteModel(banco.Model):
 
     porteId = banco.Column(banco.Integer, primary_key=True)
     descricao = banco.Column(banco.String(150), nullable=False)
-    identificador = banco.Column(banco.String(150), nullable=False)
+    identificador = banco.Column(banco.String(150), nullable=False, unique=True)
 
     def __init__(self, descricao, identificador):
         self.descricao = descricao

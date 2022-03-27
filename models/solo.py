@@ -5,7 +5,7 @@ class SoloModel(banco.Model):
 
     soloId = banco.Column(banco.Integer, primary_key=True)
     tipoSolo = banco.Column(banco.String(150), nullable=False)
-    identificador = banco.Column(banco.String(150), nullable=False)
+    identificador = banco.Column(banco.String(150), nullable=False, unique=True)
 
     def __init__(self, tipoSolo, identificador):
         self.tipoSolo = tipoSolo
