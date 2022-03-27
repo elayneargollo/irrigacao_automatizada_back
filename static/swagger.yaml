@@ -56,6 +56,22 @@ paths:
           description: Sair do sistema
 
   /plantas/:
+    post:
+      summary: Criar uma planta
+      tags:
+        - Planta
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Planta' 
+      responses: 
+        '201':
+          description: Criar
+
     get:
       summary: Retorna todas as plantas cadastradas no sistema.
       description: Visualizar plantas.
@@ -99,23 +115,6 @@ paths:
           description: Uma planta com o ID especificado não foi encontrada.
         default:
           description: Erro inesperado.
-          
-  /plantas:
-    post:
-      summary: Criar uma planta
-      tags:
-        - Planta
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Planta' 
-      responses: 
-        '201':
-          description: Criar
 
   /solos/{solo_id}:
     get:
@@ -270,9 +269,6 @@ components:
     Planta:
       type: object
       properties:
-        planta_id:
-          type: string
-          example: Girassol
         nome:
           type: string
           example: Girassol

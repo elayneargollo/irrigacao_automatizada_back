@@ -4,7 +4,7 @@ from sql_alchemy import banco
 class PlantaModel(banco.Model):
     __tablename__ = 'plantas'
 
-    plantaId = banco.Column(banco.String, primary_key=True)
+    plantaId = banco.Column(banco.Integer, primary_key=True)
     nome = banco.Column(banco.String(150), nullable=False)
     fruto = banco.Column(banco.String(3), nullable=False)
 
@@ -16,8 +16,7 @@ class PlantaModel(banco.Model):
     porte = banco.relationship('PorteModel')
     ambiente = banco.relationship('AmbienteModel')
 
-    def __init__(self, plantaId, nome, ambienteId, tipoSoloId, porteId, fruto):
-        self.plantaId = plantaId
+    def __init__(self, nome, ambienteId, tipoSoloId, porteId, fruto):
         self.nome = nome
         self.fruto = fruto
         self.ambienteId = ambienteId
