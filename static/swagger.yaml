@@ -138,6 +138,34 @@ paths:
           description: Uma planta com o ID especificado não foi encontrada.
         default:
           description: Erro inesperado.
+    put:
+      summary: Alterar uma plata
+      tags:
+        - Planta
+      security:
+        - bearerAuth : []
+      parameters:
+        - name: planta_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : string
+      requestBody:
+        required: true
+        content:
+          application/json:     
+            schema:
+              $ref: '#/components/schemas/Planta' 
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID de planta especificado é inválido (não é um número).
+        '404':
+          description: Uma planta com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.
 
   /solos/{solo_id}:
     get:
@@ -298,6 +326,9 @@ components:
         fruto:
           type: string
           example: Nao
+        planta_id:
+          type: integer
+          example: 1
         ambienteId:
           type: integer
           example: 1
