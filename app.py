@@ -1,4 +1,6 @@
-from flask import Flask, jsonify
+from re import template
+from telnetlib import AUTHENTICATION
+from flask import Flask, jsonify, request
 from flask_restful import Api
 from resources.planta import Plantas, Planta
 from resources.usuario import Usuario, UsuarioRegister, UsuarioLogin, UsuarioLogout
@@ -8,6 +10,7 @@ from resources.porte import Porte, Portes
 from flask_jwt_extended import JWTManager
 from blocklist import BLOCKLIST
 from flask_cors import CORS 
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
@@ -20,6 +23,19 @@ api = Api(app)
 jwt = JWTManager(app)
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.yaml'
+
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': " Swagger Sistema Automatizado"
+    }
+)
+
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 @app.before_first_request
 def cria_banco():

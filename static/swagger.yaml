@@ -1,0 +1,352 @@
+openapi: 3.0.0
+info:
+  title: Swagger Sistema Automatizado
+  description: Sistema automatizado para irrigação de plantas domésticas utilizando Raspberry Pi3.
+  version: 1.0.0
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: API Support
+    email: elayne.natalia@ifba.edu.br
+    url: https://github.com/elayneargollo/tcc-back
+
+servers:
+  - url: /
+
+paths:
+
+  /login:
+    post:
+      summary: Realizar login no sistema
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioLogin' 
+      tags:
+        - Autenticação
+      responses: 
+        '200':
+          description: Login no sistema
+
+  /cadastro:
+    post:
+      summary: Realizar cadastro no sistema
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cadastro' 
+      tags:
+        - Usuário
+      responses: 
+        '200':
+          description: Cadastrar-se no sistema
+
+  /logout:
+    post:
+      summary: Realizar logout no sistema
+      requestBody:
+        required: false
+      tags:
+        - Usuário
+      responses: 
+        '200':
+          description: Sair do sistema
+
+  /plantas/:
+    get:
+      summary: Retorna todas as plantas cadastradas no sistema.
+      description: Visualizar plantas.
+      tags:
+        - Planta
+      security:
+        - bearerAuth : []
+
+      responses:
+        '200':    # status code
+          description: Uma matriz JSON de plantas
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Planta' 
+        '403': 
+          description: 'Você não tem as permissões necessárias para o recurso.'
+        '401': 
+          description: 'Não autorizado'
+
+  /plantas/{planta_id}:
+    get:
+      summary: Retorna uma planta por Id
+      tags:
+        - Planta
+      security:
+        - bearerAuth : []
+      parameters:
+        - name: planta_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : string
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID de planta especificado é inválido (não é um número).
+        '404':
+          description: Uma planta com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.
+          
+  /plantas:
+    post:
+      summary: Criar uma planta
+      tags:
+        - Planta
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Planta' 
+      responses: 
+        '201':
+          description: Criar
+
+  /solos/{solo_id}:
+    get:
+      summary: Retorna um solo por Id
+      tags:
+        - Solo
+      security:
+        - bearerAuth : []
+      parameters:
+        - name: solo_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : integer
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID de solo especificado é inválido (não é um número).
+        '404':
+          description: Uma solo com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.
+
+  /solos/:
+    get:
+      summary: Retorna todos os solos cadastradas no sistema.
+      description: Visualizar solos.
+      tags:
+        - Solo
+      security:
+        - bearerAuth : []
+      responses:
+        '200':    # status code
+          description: Uma matriz JSON de solo
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Solo' 
+        '403': 
+          description: 'Você não tem as permissões necessárias para o recurso.'
+        '401': 
+          description: 'Não autorizado'
+
+  /portes/{porte_id}:
+    get:
+      summary: Retorna um porte por Id
+      tags:
+        - Porte
+      security:
+        - bearerAuth : []
+      parameters:
+        - name: porte_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : integer
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID de porte especificado é inválido (não é um número).
+        '404':
+          description: Um porte com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.
+
+  /portes/:
+    get:
+      summary: Retorna todos os portes cadastradas no sistema.
+      description: Visualizar portes.
+      tags:
+        - Porte
+      security:
+        - bearerAuth : []
+      responses:
+        '200':    # status code
+          description: Uma matriz JSON de porte
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Porte' 
+        '403': 
+          description: 'Você não tem as permissões necessárias para o recurso.'
+        '401': 
+          description: 'Não autorizado'
+
+  /ambientes/{ambiente_id}:
+    get:
+      summary: Retorna um ambiente por Id
+      tags:
+        - Ambiente
+      security:
+        - bearerAuth : []
+      parameters:
+        - name: ambiente_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : integer
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID de ambiente especificado é inválido (não é um número).
+        '404':
+          description: Um ambiente com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.
+
+  /ambientes/:
+    get:
+      summary: Retorna todos os ambientes cadastradas no sistema.
+      description: Visualizar ambientes.
+      tags:
+        - Ambiente
+      security:
+        - bearerAuth : []
+      responses:
+        '200':    # status code
+          description: Uma matriz JSON de porte
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Ambiente' 
+        '403': 
+          description: 'Você não tem as permissões necessárias para o recurso.'
+        '401': 
+          description: 'Não autorizado'
+
+components:
+  schemas:
+    cadastro:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: Elayne
+        sobrenome:
+          type: string
+          example: Natália
+        email:
+          type: string
+          example: elayne.natalia@outlook.com
+        password:
+          type: string
+          example: elayneargollo
+
+    Planta:
+      type: object
+      properties:
+        planta_id:
+          type: string
+          example: Girassol
+        nome:
+          type: string
+          example: Girassol
+        fruto:
+          type: string
+          example: Nao
+        ambienteId:
+          type: integer
+          example: 1
+        tipoSoloId:
+          type: integer
+          example: 1
+        porteId:
+          type: integer
+          example: 1
+
+    Solo:
+      type: object
+      properties:
+        soloId:
+          type: integer
+          example: 1
+        tipoSolo:
+          type: string
+          example: Arenoso
+        identificador:
+          type: string
+          example: ARENOSO
+
+    Ambiente:
+      type: object
+      properties:
+        ambienteId:
+          type: integer  
+          example: 1
+        tipoAmbiente:
+          type: string
+          example: Interno
+        identificador:
+          type: string
+          example: INTERNO
+
+    Porte:
+      type: object
+      properties:
+        porteId:
+          type: integer  
+          example: 1
+        descricao:
+          type: string
+          example: Pequeno
+        identificador:
+          type: string
+          example: PEQUENO
+
+    UsuarioLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          example: elayne.natalia@outlook.com
+        password:
+          type: string
+          example: elayne
+
+  securitySchemes:
+    basic:
+      type: http,
+      scheme: basic
+    bearerAuth:
+      type: http
+      description: Autorização JWT
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
+security:
+  - bearerAuth: []
