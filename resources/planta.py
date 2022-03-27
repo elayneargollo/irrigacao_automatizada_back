@@ -11,9 +11,9 @@ class Plantas(Resource):
 class Planta(Resource):
     argumentos = reqparse.RequestParser()
     argumentos.add_argument('nome', type=str, required=True, help="The field 'nome' cannot be left blank")
-    argumentos.add_argument('ambiente', type=str, required=True, help="The field 'ambiente' cannot be left blank")
-    argumentos.add_argument('tipoSolo', type=str, required=True, help="The field 'tipoSolo' cannot be left blank")
-    argumentos.add_argument('porte', type=str, required=True, help="The field 'porte' cannot be left blank")
+    argumentos.add_argument('ambienteId', type=str, required=True, help="The field 'ambienteId' cannot be left blank")
+    argumentos.add_argument('tipoSoloId', type=str, required=True, help="The field 'tipoSoloId' cannot be left blank")
+    argumentos.add_argument('porteId', type=str, required=True, help="The field 'porteId' cannot be left blank")
     argumentos.add_argument('fruto', type=str, required=True, help="The field 'fruto' cannot be left blank")
 
     @jwt_required()

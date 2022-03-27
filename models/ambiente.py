@@ -15,7 +15,7 @@ class AmbienteModel(banco.Model):
         return {
             'ambienteId': self.ambienteId,
             'tipoAmbiente': self.tipoAmbiente,
-            'identificador': self.identificador
+            'identificador': self.identificador,
         }
 
     def save_ambiente(self):

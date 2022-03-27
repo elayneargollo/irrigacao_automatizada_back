@@ -31,10 +31,9 @@ class Ambientes(Resource):
 
         try:
             ambiente.save_ambiente()
-        except:
+            return {"message": "Ambiente cread successfully!."}, 201
+        except Exception as e:
             return {"message": "An internal error ocurred trying to save."}, 500
-
-        return {"message": "Ambiente cread successfully!."}, 201
 
     @jwt_required()
     def get(self):
