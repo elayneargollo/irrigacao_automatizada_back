@@ -1,4 +1,8 @@
 import logging
+from pathlib import Path
+
+string_path = "outputlog\logger.log"
+path_file = Path(string_path)
 
 logging_config = dict(
     version=1,
@@ -7,7 +11,7 @@ logging_config = dict(
     },
     handlers={
         'h': {'class': 'logging.handlers.RotatingFileHandler',
-              'filename': 'logger.log',
+              'filename': path_file,
               'maxBytes': 1024 * 1024 * 5,
               'backupCount': 5,
               'level': 'DEBUG',
