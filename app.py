@@ -11,6 +11,8 @@ from flask_jwt_extended import JWTManager
 from blocklist import BLOCKLIST
 from flask_cors import CORS 
 from flask_swagger_ui import get_swaggerui_blueprint
+from logging.config import dictConfig
+from logly.logging_config import logging_config
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
@@ -23,6 +25,7 @@ api = Api(app)
 jwt = JWTManager(app)
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
+dictConfig(logging_config)
 
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.yaml'

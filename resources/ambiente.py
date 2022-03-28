@@ -2,6 +2,9 @@ from click import argument
 from flask_restful import Resource, reqparse
 from models.ambiente import AmbienteModel
 from flask_jwt_extended import  jwt_required
+import logging
+
+logger = logging.getLogger()
 
 atributos = reqparse.RequestParser()
 atributos.add_argument('tipoAmbiente')
@@ -11,6 +14,7 @@ class Ambiente(Resource):
 
     @jwt_required()
     def get(self, ambienteId):
+        logger.info("Acess getById '{}' in Ambiente".format(ambienteId))
 
         ambiente = AmbienteModel.find_ambiente(ambienteId)
         if ambiente:
@@ -22,6 +26,7 @@ class Ambientes(Resource):
 
     @classmethod
     def post(cls):
+        logger.info('Acess post in Ambientes')
         dados = atributos.parse_args()
 
         if AmbienteModel.find_by_tipo(dados['tipoAmbiente']):
@@ -33,8 +38,10 @@ class Ambientes(Resource):
             ambiente.save_ambiente()
             return {"message": "Ambiente cread successfully!."}, 201
         except Exception as e:
+            logger.error('Acess post in Ambientes {}'.format(e))
             return {"message": "An internal error ocurred trying to save."}, 500
 
     @jwt_required()
     def get(self):
+        logger.info('Acess getAll in Ambientes')
         return {'ambientes': [ambiente.json() for ambiente in AmbienteModel.query.all()]}

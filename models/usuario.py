@@ -1,6 +1,9 @@
 from flask import request, url_for, request, url_for
 from sql_alchemy import banco
 from requests import post
+import logging
+
+logger = logging.getLogger()
 
 MAILGUN_DOMAIN = 'sandbox48b07026e3d64c4dba9bf4302cf9a5cf.mailgun.org'
 MAILGUN_API_KEY = 'd334e4a5e49bf4a1cb2ad8a23d31f2cf-0677517f-1771c1f3'
@@ -34,6 +37,8 @@ class UsuarioModel(banco.Model):
         }
 
     def send_confirmation_email(self):
+        logger.info("Acess send_confirmation_email with email: '{}' in UsuarioModel".format(self.email))
+
         link =  request.url_root[:-1] + url_for('usuarioconfirmado', usuarioId=self.usuarioId)       
 
         return post('https://api.mailgun.net/v3/{}/messages'.format(MAILGUN_DOMAIN),
