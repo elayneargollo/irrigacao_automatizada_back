@@ -48,7 +48,20 @@ Para executar este projeto é necessário instalar:
 
         pip install -r requirements.txt
         
-6. Execute o programa
+6. Criar arquivo de configuração na raiz do main
+
+   - Crie um arquivo chamado de secrets.json com os valores das variáveis sensíveis
+
+         {
+             "JWT_SECRET_KEY": "DontTellAnyone",
+             "JWT_BLACKLIST_ENABLED": "True",
+             "MAILGUN_DOMAIN": {sandbox},
+             "MAILGUN_API_KEY": {key_sandbox},
+             "API_URL": {path_swagger},
+             "SWAGGER_URL":"/swagger"
+         }
+        
+7. Execute o programa
 
          python app.py
          
