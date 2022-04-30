@@ -1,4 +1,4 @@
-# API Irrigação Autônoma de Planta
+# Sistema de Irrigação Autônoma de Planta usando Raspberry Pi 4 - API
 
 API projeto final de conclusão de curso ADS-IFBA
 
@@ -6,10 +6,7 @@ API projeto final de conclusão de curso ADS-IFBA
 
 - [Pré-requisitos](#pré-requisitos)
 - [Execução Aplicação](#execução)
-- [Execução Sonarqube](#sonarqube)
-- [Links](#links)
-- [Tarefa Principal](#tarefa-principal)
-- [Tarefa Bônus](#tarefa-bônus)
+
 
 ## Pré-requisitos
 
@@ -23,11 +20,11 @@ Para executar este projeto é necessário instalar:
 
    - Execute o seguinte comando no terminal 
 
-        python -version
+         python -version
 
     - Resultado esperado
 
-        Python 3.7.0
+            Python 3.7.0
 
 ## Execução
 
@@ -60,7 +57,7 @@ Após a execução a inicialização conseguirá acessar:
 
 <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/48841005?s=40&v=4" width="100px;" alt=""/>
  
-Feito por Elayne Natália 👋🏽 Entre em contato!
+Feito por Elayne Natália 👋🏽 
 
 [![Linkedin Badge](https://img.shields.io/badge/-Elayne-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/elayne/)](https://www.linkedin.com/in/elayne-nat%C3%A1lia/) 
 
