@@ -47,6 +47,10 @@ Para executar este projeto é necessário instalar:
 5. Install all dependencies
 
         pip install -r requirements.txt
+        
+6. Execute o programa
+
+         python app.py
          
 Após a execução a inicialização conseguirá acessar:
 
