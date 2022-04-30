@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Elayne\Documents\projeto\app\main\virtual-env"
+VIRTUAL_ENV="C:\Users\Elayne\Documents\Intituto Federal da Bahia\TCC\tcc-back\app\main\virtual-env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
