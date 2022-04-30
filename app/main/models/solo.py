@@ -1,4 +1,4 @@
-from sql_alchemy import banco
+from database.sql_alchemy import banco
 
 class SoloModel(banco.Model):
     __tablename__ = 'solos'

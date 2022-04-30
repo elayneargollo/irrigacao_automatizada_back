@@ -8,11 +8,11 @@ from resources.solo import Solo, Solos
 from resources.ambiente import Ambiente, Ambientes
 from resources.porte import Porte, Portes
 from flask_jwt_extended import JWTManager
-from blocklist import BLOCKLIST
+from database.blocklist import BLOCKLIST
 from flask_cors import CORS 
 from flask_swagger_ui import get_swaggerui_blueprint
 from logging.config import dictConfig
-from logly.logging_config import logging_config
+from log.logging_config import logging_config
 from config import *
 
 app = Flask(__name__)
@@ -69,6 +69,6 @@ api.add_resource(UsuarioLogout, '/logout')
 api.add_resource(UsuarioConfirmado, '/confirmacao/<int:usuarioId>')
 
 if __name__ == '__main__':
-    from sql_alchemy import banco
+    from database.sql_alchemy import banco
     banco.init_app(app)
     app.run(debug=True)

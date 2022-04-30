@@ -1,5 +1,5 @@
 from models import ambiente
-from sql_alchemy import banco
+from database.sql_alchemy import banco
 
 class PlantaModel(banco.Model):
     __tablename__ = 'plantas'

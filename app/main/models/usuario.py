@@ -1,5 +1,5 @@
 from flask import request, url_for, request, url_for
-from sql_alchemy import banco
+from database.sql_alchemy import banco
 from requests import post
 import logging
 from config import *

@@ -6,7 +6,7 @@ from importlib_metadata import email
 from models.usuario import UsuarioModel
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt
 from werkzeug.security import safe_str_cmp
-from blocklist import BLOCKLIST
+from database.blocklist import BLOCKLIST
 import logging
 
 logger = logging.getLogger()

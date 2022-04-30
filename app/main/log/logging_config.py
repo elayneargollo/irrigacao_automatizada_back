@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-string_path = "outputlog\logger.log"
+string_path = "log\outputlog\logger.log"
 path_file = Path(string_path)
 
 logging_config = dict(
