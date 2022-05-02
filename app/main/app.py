@@ -7,6 +7,8 @@ from resources.usuario import Usuario, UsuarioRegister, UsuarioLogin, UsuarioLog
 from resources.solo import Solo, Solos
 from resources.ambiente import Ambiente, Ambientes
 from resources.porte import Porte, Portes
+from resources.sensor import Sensor, Sensores
+from resources.solenoide import Solenoide, Solenoides
 from flask_jwt_extended import JWTManager
 from database.blocklist import BLOCKLIST
 from flask_cors import CORS 
@@ -25,7 +27,7 @@ app.config['JWT_BLACKLIST_ENABLED'] = JWT_BLACKLIST_ENABLED
 api = Api(app)
 jwt = JWTManager(app)
 
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, supports_credentials=True)
 dictConfig(logging_config)
 
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
@@ -61,6 +63,12 @@ api.add_resource(Ambiente, '/ambientes/<int:ambienteId>')
 
 api.add_resource(Portes, '/portes/')
 api.add_resource(Porte, '/portes/<int:porteId>')
+
+api.add_resource(Sensores, '/sensores/')
+api.add_resource(Sensor, '/sensores/<int:sensorId>')
+
+api.add_resource(Solenoides, '/solenoides/')
+api.add_resource(Solenoide, '/solenoides/<int:solenoideId>')
 
 api.add_resource(Usuario, '/usuarios/<int:usuarioId>')
 api.add_resource(UsuarioRegister, '/cadastro')
