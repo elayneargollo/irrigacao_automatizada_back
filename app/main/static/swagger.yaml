@@ -299,6 +299,126 @@ paths:
         '401': 
           description: 'Não autorizado'
 
+  /sensores/:
+    post:
+      summary: Criar um sensor
+      tags:
+        - Sensor
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sensor' 
+      responses: 
+        '201':
+          description: Criar
+
+    get:
+      summary: Retorna todos os sensores cadastradas no sistema.
+      description: Visualizar sensores.
+      tags:
+        - Sensor
+      security:
+        - bearerAuth : []
+      responses:
+        '200':    # status code
+          description: Uma matriz JSON de porte
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Sensor' 
+        '403': 
+          description: 'Você não tem as permissões necessárias para o recurso.'
+        '401': 
+          description: 'Não autorizado'
+
+  /sensores/{sensor_id}:
+    get:
+      summary: Retorna um sensor por Id
+      tags:
+        - Sensor
+      security:
+        - bearerAuth : []
+      parameters:
+        - name: sensor_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : integer
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID de sensor especificado é inválido (não é um número).
+        '404':
+          description: Um sensor com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.       
+
+  /solenoides/{solenoide_id}:
+    get:
+      summary: Retorna um solenoide por Id
+      tags:
+        - Solenoide
+      security:
+        - bearerAuth : []
+      parameters:
+        - name: solenoide_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type : integer
+      responses: 
+        '200':
+          description: OK
+        '400':
+          description: O ID de solenoide especificado é inválido (não é um número).
+        '404':
+          description: Um solenoide com o ID especificado não foi encontrada.
+        default:
+          description: Erro inesperado.   
+
+  /solenoides/:
+    post:
+      summary: Criar uma solenóide
+      tags:
+        - Solenoide
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Solenoide' 
+      responses: 
+        '201':
+          description: Criar
+
+    get:
+      summary: Retorna todos os solenoide cadastradas no sistema.
+      description: Visualizar solenoides.
+      tags:
+        - Solenoide
+      security:
+        - bearerAuth : []
+      responses:
+        '200':    # status code
+          description: Uma matriz JSON de porte
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Solenoide' 
+        '403': 
+          description: 'Você não tem as permissões necessárias para o recurso.'
+        '401': 
+          description: 'Não autorizado'  
+
 components:
   schemas:
     cadastro:
@@ -351,6 +471,32 @@ components:
         identificador:
           type: string
           example: ARENOSO
+
+    Sensor:
+      type: object
+      properties:
+        solenoideId:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: Sensor 1
+        tag:
+          type: string
+          example: Tag_sensor
+        status:
+          type: string
+          example: ABERTO
+
+    Solenoide:
+      type: object
+      properties:
+        status:
+          type: string
+          example: Fechado
+        tag:
+          type: string
+          example: Tag_solenoide
 
     Ambiente:
       type: object
