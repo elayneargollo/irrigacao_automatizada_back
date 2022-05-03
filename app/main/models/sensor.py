@@ -10,15 +10,19 @@ class SensorModel(banco.Model):
     status = banco.Column(banco.String(150), nullable=True)
     dataLeitura = banco.Column(banco.DateTime, default=datetime.datetime.now)
 
+    plantaId = banco.Column(banco.Integer, banco.ForeignKey('plantas.plantaId'), nullable=False)
+    planta = banco.relationship('PlantaModel')
+
     solenoideId = banco.Column(banco.Integer, banco.ForeignKey('solenoides.solenoideId'), nullable=False)
     solenoide = banco.relationship('SolenoideModel')
 
-    def __init__(self, tag, nome, status, dataLeitura, solenoideId):
+    def __init__(self, tag, nome, status, dataLeitura, solenoideId, plantaId):
         self.tag = tag
         self.nome = nome
         self.status = status
         self.dataLeitura = dataLeitura
         self.solenoideId = solenoideId
+        self.plantaId = plantaId
     
     def json(self):
         return {
@@ -27,7 +31,8 @@ class SensorModel(banco.Model):
             'nome': self.nome,
             'status': self.status,
             'dataLeitura': self.dataLeitura.isoformat(),
-            'solenoide': self.solenoide.find_solenoide(self.solenoideId).json()
+            'solenoide': self.solenoide.find_solenoide(self.solenoideId).json(),
+            'planta': self.planta.find_planta(self.plantaId).json()
         }
 
     def save_sensor(self):

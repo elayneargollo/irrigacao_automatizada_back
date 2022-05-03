@@ -35,7 +35,7 @@ class Sensor(Resource):
     argumentos.add_argument('status', type=str, required=True, help="The field 'status' cannot be left blank")
     argumentos.add_argument('dataLeitura')
     argumentos.add_argument('solenoideId', type=str, required=True, help="The field 'solenoideId' cannot be left blank")
-
+    argumentos.add_argument('plantaId', type=str, required=True, help="The field 'plantaId' cannot be left blank")
 
     @jwt_required()
     def get(self, sensorId):

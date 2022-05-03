@@ -478,6 +478,9 @@ components:
         solenoideId:
           type: integer
           example: 1
+        plantaId:
+          type: integer
+          example: 1
         nome:
           type: string
           example: Sensor 1
