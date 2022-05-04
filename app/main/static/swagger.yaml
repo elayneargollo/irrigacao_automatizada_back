@@ -500,6 +500,15 @@ components:
         tag:
           type: string
           example: Tag_solenoide
+        corpo:
+          type: string
+          example: BRONZE
+        quantidadeVias:
+          type: integer
+          example: 2
+        voltagem:
+          type: integer
+          example: 110
 
     Ambiente:
       type: object

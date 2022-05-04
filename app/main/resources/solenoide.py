@@ -10,6 +10,9 @@ atributos = reqparse.RequestParser()
 atributos.add_argument('tag')
 atributos.add_argument('status')
 atributos.add_argument('dataLeitura')
+atributos.add_argument('corpo')
+atributos.add_argument('quantidadeVias')
+atributos.add_argument('voltagem')
 
 class Solenoide(Resource):
 

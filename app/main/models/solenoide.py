@@ -8,18 +8,27 @@ class SolenoideModel(banco.Model):
     tag = banco.Column(banco.String(150), nullable=True)
     status = banco.Column(banco.String(150), nullable=True)
     dataLeitura = banco.Column(banco.DateTime, default=datetime.datetime.now)
+    voltagem = banco.Column(banco.Integer)
+    quantidadeVias = banco.Column(banco.Integer)
+    corpo = banco.Column(banco.String(150), nullable=True)
 
-    def __init__(self, tag, status, dataLeitura):
+    def __init__(self, tag, status, dataLeitura, voltagem, quantidadeVias, corpo):
         self.tag = tag
         self.status = status
         self.dataLeitura = dataLeitura
+        self.voltagem = voltagem
+        self.quantidadeVias = quantidadeVias
+        self.corpo = corpo
     
     def json(self):
         return {
             'solenoideId': self.solenoideId,
             'tag': self.tag,
             'status': self.status,
-            'dataLeitura': self.dataLeitura.isoformat()
+            'dataLeitura': self.dataLeitura.isoformat(),
+            'voltagem': self.voltagem,
+            'quantidadeVias': self.quantidadeVias,
+            'corpo': self.corpo,
         }
 
     def save_solenoide(self):
