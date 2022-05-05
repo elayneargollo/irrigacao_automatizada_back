@@ -6,16 +6,25 @@ class SoloModel(banco.Model):
     soloId = banco.Column(banco.Integer, primary_key=True)
     tipoSolo = banco.Column(banco.String(150), nullable=False)
     identificador = banco.Column(banco.String(150), nullable=False, unique=True)
+    pesoSoloSeco = banco.Column(banco.Float, nullable=True)
+    pesoSoloUmido = banco.Column(banco.Float, nullable=True)
+    quantidadeAmostra = banco.Column(banco.Integer, nullable=True)
 
-    def __init__(self, tipoSolo, identificador):
+    def __init__(self, tipoSolo, identificador, pesoSoloSeco, pesoSoloUmido, quantidadeAmostra):
         self.tipoSolo = tipoSolo
         self.identificador = identificador
+        self.pesoSoloSeco = pesoSoloSeco
+        self.pesoSoloUmido = pesoSoloUmido
+        self.quantidadeAmostra = quantidadeAmostra
     
     def json(self):
         return {
             'soloId': self.soloId,
             'tipoSolo': self.tipoSolo,
-            'identificador': self.identificador
+            'identificador': self.identificador,
+            'pesoSoloSeco': self.pesoSoloSeco,
+            'pesoSoloUmido': self.pesoSoloUmido,
+            'quantidadeAmostra': self.quantidadeAmostra
         }
 
     def save_usuario(self):

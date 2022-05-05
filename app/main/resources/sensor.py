@@ -1,5 +1,6 @@
 from click import argument
 from flask_restful import Resource, reqparse
+from sqlalchemy import Float
 from models.sensor import SensorModel
 from flask_jwt_extended import jwt_required
 import logging
@@ -19,7 +20,7 @@ class Sensores(Resource):
             sensor.save_sensor()
         except Exception as e:
             logger.error('Acess post in Sensores {}'.format(e))
-            return {"message": "An internal error ocurred trying to save."}, 500
+            return {f"message": "An internal error ocurred trying to save.{e}"}, 500
 
         return sensor.json()
 
@@ -36,6 +37,8 @@ class Sensor(Resource):
     argumentos.add_argument('dataLeitura')
     argumentos.add_argument('solenoideId', type=str, required=True, help="The field 'solenoideId' cannot be left blank")
     argumentos.add_argument('plantaId', type=str, required=True, help="The field 'plantaId' cannot be left blank")
+    argumentos.add_argument('valorCalibracaoMinimo', type=float)
+    argumentos.add_argument('valorCalibracaoMaximo', type=float)
 
     @jwt_required()
     def get(self, sensorId):

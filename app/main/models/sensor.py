@@ -10,19 +10,24 @@ class SensorModel(banco.Model):
     status = banco.Column(banco.String(150), nullable=True)
     dataLeitura = banco.Column(banco.DateTime, default=datetime.datetime.now)
 
+    valorCalibracaoMinimo = banco.Column(banco.Float, nullable=True)
+    valorCalibracaoMaximo = banco.Column(banco.Float, nullable=True)
+
     plantaId = banco.Column(banco.Integer, banco.ForeignKey('plantas.plantaId'), nullable=False)
     planta = banco.relationship('PlantaModel')
 
     solenoideId = banco.Column(banco.Integer, banco.ForeignKey('solenoides.solenoideId'), nullable=False)
     solenoide = banco.relationship('SolenoideModel')
 
-    def __init__(self, tag, nome, status, dataLeitura, solenoideId, plantaId):
+    def __init__(self, tag, nome, status, dataLeitura, solenoideId, plantaId, valorCalibracaoMinimo, valorCalibracaoMaximo,):
         self.tag = tag
         self.nome = nome
         self.status = status
         self.dataLeitura = dataLeitura
         self.solenoideId = solenoideId
         self.plantaId = plantaId
+        self.valorCalibracaoMinimo = valorCalibracaoMinimo
+        self.valorCalibracaoMaximo = valorCalibracaoMaximo
     
     def json(self):
         return {
@@ -32,7 +37,9 @@ class SensorModel(banco.Model):
             'status': self.status,
             'dataLeitura': self.dataLeitura.isoformat(),
             'solenoide': self.solenoide.find_solenoide(self.solenoideId).json(),
-            'planta': self.planta.find_planta(self.plantaId).json()
+            'planta': self.planta.find_planta(self.plantaId).json(),
+            'valorCalibracaoMinimo': self.valorCalibracaoMinimo,
+            'valorCalibracaoMaximo': self.valorCalibracaoMaximo,       
         }
 
     def save_sensor(self):

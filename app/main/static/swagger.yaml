@@ -471,6 +471,15 @@ components:
         identificador:
           type: string
           example: ARENOSO
+        pesoSoloSeco:
+          type: float
+          example: 4.23
+        pesoSoloUmido:
+          type: float
+          example: 4.59
+        quantidadeAmostra:
+          type: integer
+          example: 1000
 
     Sensor:
       type: object
@@ -490,6 +499,12 @@ components:
         status:
           type: string
           example: ABERTO
+        valorCalibracaoMinimo:
+          type: float
+          example: 3458
+        valorCalibracaoMaximo:
+          type: float
+          example: 8506
 
     Solenoide:
       type: object
