@@ -39,6 +39,7 @@ class Sensor(Resource):
     argumentos.add_argument('plantaId', type=str, required=True, help="The field 'plantaId' cannot be left blank")
     argumentos.add_argument('valorCalibracaoMinimo', type=float)
     argumentos.add_argument('valorCalibracaoMaximo', type=float)
+    argumentos.add_argument('voltagem')
 
     @jwt_required()
     def get(self, sensorId):

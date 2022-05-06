@@ -505,6 +505,9 @@ components:
         valorCalibracaoMaximo:
           type: float
           example: 8506
+        voltagem:
+          type: integer
+          example: 3
 
     Solenoide:
       type: object
