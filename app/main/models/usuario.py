@@ -6,8 +6,8 @@ from config import *
 
 logger = logging.getLogger()
 
-FROM_TITLE = 'API Support Login'
-FROM_EMAIL = 'no-replay@restapi.com'
+FROM_TITLE = '[Cadastro de usuário]'
+FROM_EMAIL = 'no-replay@irrigacaoAutomatizada.com'
 
 class UsuarioModel(banco.Model):
     __tablename__ = 'usuarios'
@@ -44,7 +44,7 @@ class UsuarioModel(banco.Model):
                     auth=('api',MAILGUN_API_KEY),
                     data = {'from': '{} <{}>'.format(FROM_TITLE, FROM_EMAIL),
                            'to': self.email,
-                           'subject': 'Confirmação de Cadastro',
+                           'subject': 'Confirme sua credencial e começe a usar !!!',
                            'text': 'Confirme seu cadastrado clicando no link a seguir: {}'.format(link),
                            'html': '<html><p>\
                                Confirme seu cadastrado clicando no link a seguir: <a href="{}">CONFIRMAR EMAIL</a>\
