@@ -8,14 +8,16 @@ class SoloModel(banco.Model):
     identificador = banco.Column(banco.String(150), nullable=False, unique=True)
     pesoSoloSeco = banco.Column(banco.Float, nullable=True)
     pesoSoloUmido = banco.Column(banco.Float, nullable=True)
+    concentracaoMinima = banco.Column(banco.Float, nullable=True)
     quantidadeAmostra = banco.Column(banco.Integer, nullable=True)
 
-    def __init__(self, tipoSolo, identificador, pesoSoloSeco, pesoSoloUmido, quantidadeAmostra):
+    def __init__(self, tipoSolo, identificador, pesoSoloSeco, pesoSoloUmido, quantidadeAmostra, concentracaoMinima):
         self.tipoSolo = tipoSolo
         self.identificador = identificador
         self.pesoSoloSeco = pesoSoloSeco
         self.pesoSoloUmido = pesoSoloUmido
         self.quantidadeAmostra = quantidadeAmostra
+        self.concentracaoMinima = concentracaoMinima
     
     def json(self):
         return {
@@ -24,7 +26,8 @@ class SoloModel(banco.Model):
             'identificador': self.identificador,
             'pesoSoloSeco': self.pesoSoloSeco,
             'pesoSoloUmido': self.pesoSoloUmido,
-            'quantidadeAmostra': self.quantidadeAmostra
+            'quantidadeAmostra': self.quantidadeAmostra,
+            'concentracaoMinima': self.concentracaoMinima
         }
 
     def save_usuario(self):

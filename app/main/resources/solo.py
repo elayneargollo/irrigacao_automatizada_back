@@ -11,6 +11,7 @@ atributos.add_argument('tipoSolo')
 atributos.add_argument('identificador')
 atributos.add_argument('pesoSoloSeco', type=float)
 atributos.add_argument('pesoSoloUmido', type=float)
+atributos.add_argument('concentracaoMinima', type=float)
 atributos.add_argument('quantidadeAmostra', type=int)
 
 class Solo(Resource):

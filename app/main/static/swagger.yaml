@@ -480,6 +480,9 @@ components:
         quantidadeAmostra:
           type: integer
           example: 1000
+        concentracaoMinima:
+          type: float
+          example: 31
 
     Sensor:
       type: object
